@@ -1,3 +1,10 @@
+Pada folder di xampp->htdocs, buat folder tugas2_sbd
+Buat folder baru lagi bernama template didalam tugas2_sbd
+Lalu pindah semua file yang ada di github ini kedalam folder template
+===========================================================================
+create database tugas2_sbd
+use tugas2_sbd
+
 create table Pasien (
     NIK int not null primary key,
     namaPasien varchar(50) not null,
