@@ -1,0 +1,49 @@
+create table Pasien (
+    NIK int not null primary key,
+    namaPasien varchar(50) not null,
+    tglLahir date not null,
+    tptLahir varchar(50) not null,
+    jenisKelamin enum ('Laki-laki','Perempuan') not null,
+    pendidikan varchar(25),
+    pekerjaan varchar(20),
+    alamat varchar(100) not null
+);
+
+create table Dokter (
+    idDokter int not null primary key,
+    namaDokter varchar(50) not null
+);
+
+create table Pemeriksaan (
+    noSurat int auto_increment primary key not null,
+    tglPemeriksaan date not null,
+    NIK int not null,
+    tinggiBadan float not null,
+    beratBadan float not null,
+    hasilDiagnosa enum ('Sehat','Sakit'),
+    idDokter int not null,
+    foreign key (NIK) references Pasien(NIK)
+    on delete cascade
+    on update cascade,
+    foreign key (idDokter) references Dokter(idDokter)
+    on delete cascade
+    on update cascade
+);
+
+insert into Pasien (NIK, namaPasien, tglLahir, tptLahir, jenisKelamin, pendidikan, pekerjaan, alamat) values
+    (42542, 'Nunu', '2002-02-11', 'Yogyakarta', 'Laki-laki', 'S1', 'mahasiswa', 'Gamping, Sleman'),
+    (35623, 'Yusak', '2002-07-11', 'Yogyakarta', 'Laki-laki', 'S1', 'mahasiswa', 'Kalasan, Sleman'),
+    (54235, 'Edith', '2002-02-11', 'Sleman', 'Perempuan', 'S1', 'mahasiswa', 'Depok, Sleman');
+
+insert into Dokter (idDokter, namaDokter) values
+    (922003, 'dr.S.D.F.Wulan'),
+    (922004, 'dr.S.D.F.Dana'),
+    (922005, 'dr.S.D.F.Anita');
+
+insert into Pemeriksaan (tglPemeriksaan, NIK, tinggiBadan, beratBadan, hasilDiagnosa, idDokter) values
+    ('2021-10-10', 42542, 171, 50, 'Sehat', 922003),
+    ('2021-10-10', 35623, 168, 48, 'Sehat', 922004),
+    ('2021-10-10', 54235, 165, 45, 'Sakit', 922003),
+    ('2021-10-12', 35623, 168, 49, 'Sehat', 922005),
+    ('2021-10-18', 54235, 166, 50, 'Sehat', 922003),
+    ('2021-10-18', 42542, 171, 49, 'Sakit', 922004);
